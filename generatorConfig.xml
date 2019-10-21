@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 注释 -->
+        <commentGenerator>
+            <!-- 是否取消注释 -->
+            <property name="suppressAllComments" value="true"/>
+            <!-- 是否生成注释带时间戳-->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <!-- mysql数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/jobs?serverTimezone=UTC"
+                        userId="root"
+                        password="123456">
+            <!--防止生成其他库同名表-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 指定JavaBean生成的位置 -->
+        <javaModelGenerator targetPackage="pers.wong.jobs.entity" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--指定sql映射文件生成的位置-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--指定dao接口生成的位置，mapper接口-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="pers.wong.jobs.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table tableName="job_user" domainObjectName="User"/>
+        <table tableName="job_role" domainObjectName="Role"/>
+        <table tableName="job_user_role" domainObjectName="UserRole"/>
+        <table tableName="job_recruit_info" domainObjectName="RecruitInfo"/>
+        <table tableName="job_seeker_notice" domainObjectName="SeekerNotice"/>
+        <table tableName="job_experience" domainObjectName="Experience"/>
+        <table tableName="job_talent_market" domainObjectName="TalentMarket"/>
+        <table tableName="job_complain" domainObjectName="Complain"/>
+        <table tableName="job_audit" domainObjectName="Audit"/>
+    </context>
+</generatorConfiguration>

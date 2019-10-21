@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "email-config.host",
+      "type": "java.lang.String",
+      "description": "Description for email-config.host."
+    },
+    {
+      "name": "email-config.port",
+      "type": "java.lang.Integer",
+      "description": "Description for email-config.port."
+    },
+    {
+      "name": "email-config.username",
+      "type": "java.lang.String",
+      "description": "Description for email-config.username."
+    },
+    {
+      "name": "email-config.password",
+      "type": "java.lang.String",
+      "description": "Description for email-config.password."
+    }
+  ] }

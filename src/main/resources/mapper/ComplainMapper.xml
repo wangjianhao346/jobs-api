@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.wong.jobs.dao.ComplainMapper">
+  <resultMap id="BaseResultMap" type="pers.wong.jobs.entity.Complain">
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="recruit_id" jdbcType="INTEGER" property="recruitId" />
+    <result column="solve" jdbcType="VARCHAR" property="solve" />
+    <result column="read" jdbcType="VARCHAR" property="read" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="pers.wong.jobs.entity.Complain">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    pid, user_id, recruit_id, solve, read, createtime, is_deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="pers.wong.jobs.entity.ComplainExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_complain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="pers.wong.jobs.entity.ComplainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job_complain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_complain
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from job_complain
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="pers.wong.jobs.entity.ComplainExample">
+    delete from job_complain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="pers.wong.jobs.entity.Complain">
+    insert into job_complain (pid, user_id, recruit_id, 
+      solve, read, createtime, 
+      is_deleted, content)
+    values (#{pid,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{recruitId,jdbcType=INTEGER}, 
+      #{solve,jdbcType=VARCHAR}, #{read,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=CHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="pers.wong.jobs.entity.Complain">
+    insert into job_complain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="recruitId != null">
+        recruit_id,
+      </if>
+      <if test="solve != null">
+        solve,
+      </if>
+      <if test="read != null">
+        read,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="recruitId != null">
+        #{recruitId,jdbcType=INTEGER},
+      </if>
+      <if test="solve != null">
+        #{solve,jdbcType=VARCHAR},
+      </if>
+      <if test="read != null">
+        #{read,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="pers.wong.jobs.entity.ComplainExample" resultType="java.lang.Long">
+    select count(*) from job_complain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update job_complain
+    <set>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recruitId != null">
+        recruit_id = #{record.recruitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.solve != null">
+        solve = #{record.solve,jdbcType=VARCHAR},
+      </if>
+      <if test="record.read != null">
+        read = #{record.read,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update job_complain
+    set pid = #{record.pid,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      recruit_id = #{record.recruitId,jdbcType=INTEGER},
+      solve = #{record.solve,jdbcType=VARCHAR},
+      read = #{record.read,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=CHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update job_complain
+    set pid = #{record.pid,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      recruit_id = #{record.recruitId,jdbcType=INTEGER},
+      solve = #{record.solve,jdbcType=VARCHAR},
+      read = #{record.read,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="pers.wong.jobs.entity.Complain">
+    update job_complain
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="recruitId != null">
+        recruit_id = #{recruitId,jdbcType=INTEGER},
+      </if>
+      <if test="solve != null">
+        solve = #{solve,jdbcType=VARCHAR},
+      </if>
+      <if test="read != null">
+        read = #{read,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="pers.wong.jobs.entity.Complain">
+    update job_complain
+    set user_id = #{userId,jdbcType=INTEGER},
+      recruit_id = #{recruitId,jdbcType=INTEGER},
+      solve = #{solve,jdbcType=VARCHAR},
+      read = #{read,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=CHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pers.wong.jobs.entity.Complain">
+    update job_complain
+    set user_id = #{userId,jdbcType=INTEGER},
+      recruit_id = #{recruitId,jdbcType=INTEGER},
+      solve = #{solve,jdbcType=VARCHAR},
+      read = #{read,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=CHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>
